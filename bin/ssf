@@ -1,11 +1,57 @@
 #!/usr/bin/env coffee
+## vim:ft=coffee
 # -*- mode:coffee -*-
 
 ssf = require ".."
 fs = require 'fs'
+path = require "path"
+OptParse = require "optparse"
 
-loadSource = (filename) ->
+EXEC_SWITCHES = [
+    ["-t", "--type [OUTPUT_FORMAT]", "Alias for -f option."],
+    ["-f", "--format [OUTPUT_FORMAT]", "Set output format. OUTPUT_FORMAT is 'text', or 'html'."],
+    ["-h", "--help", "Print this help."],
+    ["-v", "--version", "Displays version of this script."]
+]
+
+options =
+    type: "text"
+    filename: ""
+
+parser = new OptParse.OptionParser EXEC_SWITCHES
+parser.banner = "Usage: ssf input_filename [-t|-f]"
+
+parser.filter "OUTPUT_FORMAT", (value) ->
+    l = value.toLowerCase()
+    throw "OUTPUT_FORMAT must be 'text' or 'html'." unless l == "text" or l == "html"
+    value
+
+parser.on "type", (opt, value) ->
+    options.type = value
+
+parser.on "format", (opt, value) ->
+    options.type = value
+
+parser.on "help", (opt, value) ->
+    console.log parser.toString()
+    process.exit 0
+
+parser.on "version", (opt, value) ->
+    console.log readVersion()
+    process.exit 0
+
+parser.on 2, (value) ->
+    options.filename = value
+
+
+readVersion = () ->
+    pkg = require path.join __dirname, "..", "package.json"
+    pkg.version
+
+
+loadSource = (filename, type) ->
     fs.readFile filename, "utf8", (error, text) ->
-        console.log (ssf.compile (ssf.parse text))
+        console.log (ssf.compile (ssf.parse text), type)
 
-loadSource process.argv[2]
+parser.parse process.argv
+loadSource options.filename, options.type

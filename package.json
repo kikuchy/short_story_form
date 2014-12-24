@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/kikuchy/short_story_form",
   "dependencies": {
-    "coffee-script": "1.6.3"
+    "coffee-script": "1.6.3",
+    "optparse": "1.0.4"
   },
   "bin": {
     "ssf": "./bin/ssf"
