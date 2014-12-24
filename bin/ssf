@@ -1,0 +1,11 @@
+#!/usr/bin/env coffee
+# -*- mode:coffee -*-
+
+ssf = require ".."
+fs = require 'fs'
+
+loadSource = (filename) ->
+    fs.readFile filename, "utf8", (error, text) ->
+        console.log (ssf.compile (ssf.parse text))
+
+loadSource process.argv[2]

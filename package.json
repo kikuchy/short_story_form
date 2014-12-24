@@ -1,0 +1,26 @@
+{
+  "name": "short_story_form",
+  "version": "0.0.0",
+  "description": "へんてこさんのSS記法",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "coffee -o lib/ -c src/*.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kikuchy/short_story_form.git"
+  },
+  "author": "kikuchy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kikuchy/short_story_form/issues"
+  },
+  "homepage": "https://github.com/kikuchy/short_story_form",
+  "dependencies": {
+    "coffee-script": "1.6.3"
+  },
+  "bin": {
+    "ssf": "./bin/ssf"
+  }
+}
