@@ -26,9 +26,9 @@ parseEachLine = (line, charIndexTable, charAliasTable, sentenceStream) ->
         when '#', '＃'
             sentenceStream.push new CommentSentence line
             return
-    if m = line.match /^(.+?)([:：;； 　]+)([^ 　#＃\t]*)/
+    if m = line.match /^(.+?)([:：_＿ 　]+)([^ 　#＃\t]*)/
         if c = charIndexTable[m[1]] or c = charAliasTable[m[1]]
-            if m[2].match /[;；]/
+            if m[2].match /[_＿]/
                 sentenceStream.push new DialogSentence m[3], c, "（", "）"
             else
                 sentenceStream.push new DialogSentence m[3], c
