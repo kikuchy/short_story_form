@@ -1,6 +1,6 @@
 {
-  "name": "short_story_form",
-  "version": "0.0.0",
+  "name": "short-story-form",
+  "version": "0.0.1",
   "description": "へんてこさんのSS記法",
   "main": "lib/index.js",
   "scripts": {
