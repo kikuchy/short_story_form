@@ -8,24 +8,26 @@
 
 
 parseFullText = (fullText) ->
-    charTable = {}
+    charIndexTable = {}
+    charAliasTable = {}
     sentenceStream = []
     for l in (fullText.split "\n")
-        parseEachLine l, charTable, sentenceStream
-    new Story (charTable[idx] for idx of charTable), sentenceStream
+        parseEachLine l, charIndexTable, charAliasTable, sentenceStream
+    new Story (charIndexTable[idx] for idx of charIndexTable), sentenceStream
 
-parseEachLine = (line, charTable, sentenceStream) ->
+parseEachLine = (line, charIndexTable, charAliasTable, sentenceStream) ->
 # まずはざっと判別
     switch (line.charAt 0)
         when '-', '*'
-            if m = line.match /^[-*] ?(\d+) ([^ 　#＃\t]*)/
-                charTable[m[1]] = new Character m[2]
+            if m = line.match /^[-*] ?(\d+) ([^ 　#＃\t]*)[ 　\t]?([^ 　#＃\t]*)/
+                charIndexTable[m[1]] = new Character m[2]
+                charAliasTable[m[3]] = charIndexTable[m[1]] if m[3]
                 return
         when '#', '＃'
             sentenceStream.push new CommentSentence line
             return
-    if m = line.match /^(\d+)[ 　]+([^ 　#＃\t]*)/
-        if c = charTable[m[1]]
+    if m = line.match /^(.+?)[:： 　]+([^ 　#＃\t]*)/
+        if c = charIndexTable[m[1]] or c = charAliasTable[m[1]]
             sentenceStream.push new DialogSentence m[2], c
         else
             throw "Character indexed or aliased as #{m[1]} is undefined."
