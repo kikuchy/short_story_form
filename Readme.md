@@ -6,6 +6,12 @@
 
 この記法を実現するためのjs実装
 
+## 本家
+
+へんてこさん本人によるRuby実装はこちら
+
+[https://github.com/henteko/ss_syntax_rb](https://github.com/henteko/ss_syntax_rb)
+
 ## インストール
 
     $ npm install -g short-story-form
@@ -16,4 +22,4 @@
 
 ##ライセンス
 
-へんてこさんに聞いてください
+へんてこさんがMIT Lisenceだって言ってるのでMITです
