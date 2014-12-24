@@ -11,7 +11,7 @@ complie = (story) ->
 
 sentenceToString = (s) ->
     if s instanceof DialogSentence
-        "#{s.character.name}「#{s.text}」" + "\n"
+        s.character.name + s.bracketStart + s.text + s.bracketEnd + "\n"
     else if s instanceof NarratorSentence
         s.text + "\n"
     else

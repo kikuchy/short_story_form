@@ -26,9 +26,12 @@ parseEachLine = (line, charIndexTable, charAliasTable, sentenceStream) ->
         when '#', '＃'
             sentenceStream.push new CommentSentence line
             return
-    if m = line.match /^(.+?)[:： 　]+([^ 　#＃\t]*)/
+    if m = line.match /^(.+?)([:：;； 　]+)([^ 　#＃\t]*)/
         if c = charIndexTable[m[1]] or c = charAliasTable[m[1]]
-            sentenceStream.push new DialogSentence m[2], c
+            if m[2].match /[;；]/
+                sentenceStream.push new DialogSentence m[3], c, "（", "）"
+            else
+                sentenceStream.push new DialogSentence m[3], c
         else
             throw "Character indexed or aliased as #{m[1]} is undefined."
         return

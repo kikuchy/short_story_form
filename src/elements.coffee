@@ -11,7 +11,7 @@ class Character
 
 
 class DialogSentence extends Sentence
-    constructor: (@text, @character) ->
+    constructor: (@text, @character, @bracketStart = "「", @bracketEnd = "」") ->
         super @text
 
 
