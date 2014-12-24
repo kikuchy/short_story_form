@@ -6,6 +6,10 @@
 
 この記法を実現するためのjs実装
 
+## インストール
+
+    $ npm install -g short-story-form
+
 ## 使い方
 
     $ ssf mystory.txt
